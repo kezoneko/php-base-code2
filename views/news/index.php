@@ -95,7 +95,7 @@
               </div>
               
                 <p><?= $newsItem['short_content'] ?></p>
-                <p><a href="/phpstart/news/<?= $newsItem['id'] ?>">Подробнее</a></p>
+                <p><a href="/phpstart/news/<?= $newsItem['id'] ?>">Подробнее...</a></p>
               </div>
             </div>
           </div>
