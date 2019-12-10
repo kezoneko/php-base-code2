@@ -30,17 +30,11 @@ class Router
             // Сравниваем $uriPattern и $uri
             if (preg_match("~$uriPattern~", $uri)) {
 
-                // echo '<br>Где ищем (запрос, к-ый набрал пользователь): '. $uri;
-                // echo '<br>Что ищем (совпадение из правила): '. $uriPattern;
-                // echo '<br>Кто обрабатывает: '. $path;
-
                 // Получаем внутренний путь из внешнего согласно правилу.
                 $internalRoute = preg_replace("~$uriPattern~", $path, $uri);
-                // echo '<br><br>Нужно сформировать: '. $internalRoute;
 
                 // Определить контроллер, action, параметры
                 $segments = explode('/', $internalRoute);
-                array_shift($segments); // удаление первого элемента массива
 
                 $controllerName = array_shift($segments) .'Controller';
                 $controllerName = ucfirst($controllerName);
@@ -66,7 +60,6 @@ class Router
                     break;
                 }
             }
-            //echo '<br>'.$uri;
         }
 
         // Если есть совпадение, определить какой контроллер
