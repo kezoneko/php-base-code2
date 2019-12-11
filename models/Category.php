@@ -27,6 +27,21 @@ class Category
 
     }
 
+    /**
+     * Return a name of custom category by $id
+     */
+    public static function getCategoryName($categoryId)
+    {
+
+        $db = Db::getConnection();
+        $result = $db->query("SELECT name FROM category "
+            ."WHERE id=". $categoryId);
+        $categoryName = $result->fetch();
+
+        return $categoryName['name'];
+
+    }
+
 }
 
 ?>
