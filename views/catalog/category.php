@@ -2,7 +2,8 @@
         <section>
             <div class="container">
                 <div class="row">
-<?php include ROOT .'/views/layouts/navigation.php' ?>
+<?php //include ROOT .'/views/layouts/navigation.php' ?>
+
                     <div class="col-sm-9 padding-right">
                         <div class="features_items"><!--features_items-->
                             <h2 class="title text-center">Товары категории "<?= $categoryName ?>"</h2>

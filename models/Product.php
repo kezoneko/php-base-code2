@@ -44,13 +44,14 @@ class Product
 
         $id = intval($id);
 
-        $db = Db::getConnection();
+        if ($id) {
+            $db = Db::getConnection();
 
-        $result = $db->query('SELECT * FROM product WHERE id='. $id);
-        
-        $product = $result->fetch();
+            $result = $db->query('SELECT * FROM product WHERE id='. $id);
+            $result->setFetchMode(PDO::FETCH_ASSOC);
 
-        return $product;
+            return $result->fetch();
+        }
     }
 
     /**

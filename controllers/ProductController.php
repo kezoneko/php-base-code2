@@ -6,13 +6,13 @@ include_once ROOT .'/models/Product.php'; // Подключение модели
 class ProductController
 {
     
-    public function actionView($id)
+    public function actionView($productId)
     {
 
         $categories = array();
         $categories = Category::getCategoriesList();
         
-        $product = Product::getProductById($id);
+        $product = Product::getProductById($productId);
 
         require_once(ROOT .'/views/product/view.php');
 
