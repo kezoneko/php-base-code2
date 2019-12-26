@@ -42,5 +42,55 @@ class UserController
         return true;
     }
 
+    public function actionLogin()
+    {
+
+        $email = '';
+        $password = '';
+
+        if (isset($_POST['submit'])) {
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+
+            $errors = false;
+
+            // Валидация полей
+            if (!User::checkEmail($email)) {
+                $errors[] = 'Неправильный адрес электронной почты';
+            }
+            if (!User::checkPassword($password)) {
+                $errors[] = 'Пароль должен быть не менее 6 символов';
+            }
+
+            // Проверяем, существует ли пользователь
+            $userId = User::checkUserData($email, $password);
+
+            if ($userId == False) {
+                // Если данные неправильные - показываем ошибку
+                $errors[] = 'Неправильные данные для входа на сайт';
+            } else {
+                // Если данные правильные, запоминаем пользователя (сессия)
+                User::auth($userId);
+
+                // Перенаправляем пользователя в закрытую часть - кабинет
+                header("Location: /cabinet/");
+            }
+        }
+
+        require_once ROOT .'/views/user/login.php';
+
+        return true;
+    }
+
+    /**
+     * Удаляем данные о пользователе из сессии
+     */
+    public function actionLogout()
+    {
+        
+        unset($_SESSION['user']);
+        header("Location: /");
+    }
+
 }
 ?>

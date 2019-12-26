@@ -5,9 +5,12 @@
 ini_set('display_errors',1);
 error_reporting(E_ALL);
 
+// для работы со сессиями
+session_start();
+
 // 2. Подключение файлов системы
-define('ROOT', dirname(__FILE__));
-require_once(ROOT .'/components/Autoload.php');
+define('ROOT', dirname(__FILE__)); // присвоение константы директории сайта
+require_once(ROOT .'/components/Autoload.php'); // автоматическое подключение модулей, компонентов
 
 // 3. Установка соединения с БД
 

@@ -73,5 +73,91 @@ class User
             return true;
         }
     }
+
+    /**
+     * Проверяет существует ли пользователь с заданными $email и $password
+     * @param string $email
+     * @param string $password
+     * @return mixed : integer user id or false 
+     */
+    public static function checkUserData($email, $password)
+    {
+
+        $db = Db::getConnection();
+
+        $sql = 'SELECT * FROM user WHERE email = :email AND password = :password';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email, PDO::PARAM_STR);
+        $result->bindParam(':password', $password, PDO::PARAM_STR);
+        $result->execute();
+
+        $user = $result->fetch();
+        if ($user) {
+            return $user['id'];
+        }
+
+        return false;
+    }
+
+    /**
+     * Запоминаем пользователя
+     * @param string $email
+     * @param string $password
+     */
+    public static function auth($userId)
+    {
+        
+        $_SESSION['user'] = $userId;
+    }
+
+    /**
+     * Проверка залогинен ли пользователь
+     */
+    public static function checkLogged()
+    {
+
+        // Если сессия есть, вернем идентификатор пользователя
+        if (isset($_SESSION['user'])) {
+            return $_SESSION['user'];
+        }
+
+        header("Location: /user/login");
+    }
+
+    /**
+     * Проверка является ли пользователь гостем или авторизированным пользователем
+     */
+    public static function isGuest()
+    {
+
+        if (isset($_SESSION['user'])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Получение пользователя из БД по идентификатору
+     * @param integer $id
+     */
+    public static function getUserById($id)
+    {
+
+        if ($id) {
+            $db = Db::getConnection();
+
+            $sql = 'SELECT * FROM user WHERE id = :id';
+
+            $result = $db->prepare($sql);
+            $result->bindParam(':id', $id, PDO::PARAM_INT);
+
+            // Указываем, что хотим получить данные в виде массива
+            $result->setFetchMode(PDO::FETCH_ASSOC);
+            $result->execute();
+
+            return $result->fetch();
+        }
+    }
 }
 ?>

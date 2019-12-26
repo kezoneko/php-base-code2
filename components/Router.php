@@ -42,7 +42,7 @@ class Router
                 $actionName = 'action'.ucfirst(array_shift($segments));
 
                 $parameters = $segments;
-
+prePrint($internalRoute);
                 // Подключить файл класса-контроллера
                 $controllerFile = ROOT.'/controllers/'.$controllerName.'.php';
 
