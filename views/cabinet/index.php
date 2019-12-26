@@ -8,7 +8,7 @@
 
                     <h3>Привет, <?= ($user) ? "{$user['name']}" : 'NONAME' ?></h3>
                     <ul>
-                        <li><a href="/user/edit">Редактировать данных</a></li>
+                        <li><a href="/cabinet/edit">Редактировать данных</a></li>
                         <li><a href="/user/history">Список покупок</a></li>
                     </ul>
                     

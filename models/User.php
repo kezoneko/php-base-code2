@@ -20,6 +20,27 @@ class User
     }
 
     /**
+     * Редактирование данных пользователя
+     * @param integer $id
+     * @param string $name
+     * @param string $password
+     */
+    public static function edit($id, $name, $password)
+    {
+        $db = Db::getConnection();
+
+        $sql = "UPDATE user
+            SET name = :name, password = :password
+            WHERE id = :id";
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':name', $name, PDO::PARAM_STR);
+        $result->bindParam(':password', $password, PDO::PARAM_STR);
+        return $result->execute();
+    }
+
+    /**
      * Проверяет имя: не меньше, чем 2 символа
      */
     public static function checkName($name)
