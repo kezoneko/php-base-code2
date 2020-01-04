@@ -26,6 +26,7 @@ class Cart
 
         $_SESSION['products'] = $productsInCart;
         // prePrint($_SESSION['products']); die();
+        return self::countItems();
     }
 
     public static function countItems()

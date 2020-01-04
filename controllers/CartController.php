@@ -12,5 +12,12 @@ class CartController
         $referrer = $_SERVER['HTTP_REFERER'];
         header("Location: $referrer");
     }
+
+    public function actionAddAjax($id)
+    {
+        // Добавляем товар в корзину
+        echo Cart::addProduct($id);
+        return true;
+    }
 }
 ?>

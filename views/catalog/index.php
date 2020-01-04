@@ -14,7 +14,7 @@
                                             <img src="<?= $latestProductItem['image'] ?>" alt="" />
                                             <h2><?= $latestProductItem['price'] ?> &#8381;</h2>
                                             <p><a href="/product/<?= $latestProductItem['id'] ?>"><?= $latestProductItem['name'] ?></a></p>
-                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
+                                            <a href="/cart/add/<?= $latestProductItem['id'] ?>" data-id="<?= $latestProductItem['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                         </div>
                                         <?= ($latestProductItem['is_new']) ? '<img src="/template/images/home/new.png" class="new" alt="" />' : '' ; ?>
                                     </div>
