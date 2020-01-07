@@ -36,6 +36,32 @@ class Product
 
     }
 
+    public static function getRecommendedProducts($count = self::SHOW_BY_DEFAULT)
+    {
+
+        $count = intval($count);
+
+        $db = Db::getConnection();
+
+        $productsList = array();
+
+        $result = $db->query('SELECT id, name, price, image FROM product '
+            .'WHERE status=1 AND is_recommended=1 '
+            .'ORDER BY id DESC '
+            .'LIMIT '. $count);
+
+        $i = 0;
+        while ($row = $result->fetch()) {
+            $productsList[$i]['id'] = $row['id'];
+            $productsList[$i]['name'] = $row['name'];
+            $productsList[$i]['price'] = $row['price'];
+            $productsList[$i]['image'] = $row['image'];
+            $i++;
+        }
+
+        return $productsList;
+    }
+
     /**
      * Return a row of product from id field
      */

@@ -29,8 +29,12 @@
 
                             <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
-<?php $i = 0; foreach ($recommendedProducts as $product): ?>
+                                    <?php
+                                    $i = 0;
+                                    foreach ($recommendedProducts as $product): ?>
+                                    <?php if ($i % 3 == 0): ?>
                                     <div class="item<?= ($i == 0) ? ' active' : '' ?>">
+                                    <?php endif ?>
                                         <div class="col-sm-4">
                                             <div class="product-image-wrapper">
                                                 <div class="single-products">
@@ -40,12 +44,15 @@
                                                         <p><a href="/product/<?= $product['id'] ?>"><?= $product['name'] ?></a></p>
                                                         <a href="/cart/add/<?= $product['id'] ?>" data-id="<?= $product['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                                     </div>
+
                                                 </div>
                                             </div>
                                         </div>
+                                    <?php if ($i != 0 AND (($i + 1) % 3 == 0)): ?>
                                     </div>
-
-<?php $i++; endforeach ?>
+                                    <?php endif ?>
+                                    <?php $i++; endforeach ?>
+                                    </div>
                                 </div>
                                 <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
                                     <i class="fa fa-angle-left"></i>
