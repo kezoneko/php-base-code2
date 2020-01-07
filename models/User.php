@@ -121,6 +121,15 @@ class User
         return false;
     }
 
+    public static function checkPhone($userPhone)
+    {
+        if ($userPhone > 10) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Запоминаем пользователя
      * @param string $email

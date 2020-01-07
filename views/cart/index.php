@@ -29,6 +29,8 @@
                                     <td><?= $totalPrice ?></td>
                                 </tr>
                             </table>
+
+                            <a href="/cart/checkout"><button class="btn btn-default">Оформить заказ</button></a>
                             <?php else: ?>
                             <p>Корзина пуста</p>
                             <?php endif ?>

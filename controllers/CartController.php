@@ -43,5 +43,120 @@ class CartController
         
         return true;
     }
+
+    public function actionCheckout()
+    {
+
+        // Список категорий для левого меню
+        $categories = array();
+        $categories = Category::getCategoriesList();
+
+        // Статус успешного оформления заказа
+        $result = false;
+
+        // Форма отправлена?
+        if (isset($_POST['submit'])) {
+            // Форма отправлена? - Да
+
+            // Считываем данные формы
+            $userName = $_POST['userName'];
+            $userPhone = $_POST['userPhone'];
+            $userComment = $_POST['userComment'];
+
+            // Валидация полей
+            $errors = false;
+            if (!User::checkName($userName)) {
+                $errors[] = 'Неправильное имя';
+            }
+            if (!User::checkPhone($userPhone)) {
+                $errors[] = 'Неправильный номер телефона';
+            }
+
+            // Форма заполнена корректно?
+            if ($errors == false) {
+                // Форма заполнена корректно? - Да
+                // Сохраняем заказ в базе данных
+
+                // Собираем информацию о заказе
+                $productsInCart = Cart::getProducts();
+                if (User::isGuest()) {
+                    $userId = 0;
+                } else {
+                    $userId = User::checkLogged();
+                }
+
+                // Сохраняем заказ в БД
+                $result = Order::save($userName, $userPhone, $userComment, $userId, $productsInCart);
+
+                if ($result) {
+                    // Оповещаем администратора о новом заказе
+                    $adminEmail = 'kezoneko@gmail.com';
+                    $message = 'http://temp.kes/admin/orders';
+                    $subject = 'Новый заказ';
+                    #mail($adminEmail, $subject, $message);
+
+                    // Очищаем корзину
+                    Cart::clear();
+                }
+                // Итоги: общая стоимость, количество товаров
+                /*$productsInCart = Cart::getProducts();
+                prePrint($productsInCart);
+                $productsIds = array_keys($productsInCart);
+                $products = Product::getProductsByIds($productsIds);
+                $totalPrice = Cart::getTotalPrice($products);
+                $totalQuantity = Cart::countItems();*/
+            } else {
+                // Форма заполнена корректно? - Нет
+
+                // Итоги: общая стоимость, количество товаров
+                $productsInCart = Cart::getProducts();
+                $productsIds = array_keys($productsInCart);
+                $products = Product::getProductsByIds($productsIds);
+                $totalPrice = Cart::getTotalPrice($products);
+                $totalQuantity = Cart::countItems();
+            }
+        } else {
+            // Форма отправлена? - Нет
+
+            // Получаем данные с корзины
+            $productsInCart = Cart::getProducts();
+
+            // В корзине есть товары?
+            if ($productsInCart == false) {
+                // В корзине есть товары? - Нет
+                // Отправляем пользователя на главную искать товары
+                header("Location: /");
+            } else {
+                // В корзине есть товары? - Да
+
+                // Итоги: общая стоимость, количество товаров
+                $productsIds = array_keys($productsInCart);
+                $products = Product::getProductsByIds($productsIds);
+                $totalPrice = Cart::getTotalPrice($products);
+                $totalQuantity = Cart::countItems();
+
+                $userName = false;
+                $userPhone = false;
+                $userComment = false;
+
+                // Пользователь авторизован?
+                if (User::isGuest()) {
+                    // Пользователь авторизован? - Нет
+                    // Значения для формы пустые
+                } else {
+                    // Пользователь авторизован? - Да
+                    // Получаем информацию о пользователе из БД по id
+                    $userId = User::checkLogged();
+                    $user = User::getUserById($userId);
+                    // Подставляем в форму
+                    $userName = $user['name'];
+                }
+            }
+        }
+
+        require_once ROOT .'/views/cart/checkout.php';
+
+        return true;
+    }
 }
 ?>
