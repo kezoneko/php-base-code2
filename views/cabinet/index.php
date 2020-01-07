@@ -10,6 +10,7 @@
                     <ul>
                         <li><a href="/cabinet/edit">Редактировать данных</a></li>
                         <li><a href="/user/history">Список покупок</a></li>
+                        <?= (User::isAdmin()) ? '<li><a href="/admin">Админпанель</a></li>' : '' ?>
                     </ul>
                     
                 </div>

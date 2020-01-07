@@ -167,6 +167,18 @@ class User
         return true;
     }
 
+    public static function isAdmin()
+    {
+        if (isset($_SESSION['user'])) {
+            $user = self::getUserById($_SESSION['user']);
+            if ($user['role'] == 'admin') {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
     /**
      * Получение пользователя из БД по идентификатору
      * @param integer $id
