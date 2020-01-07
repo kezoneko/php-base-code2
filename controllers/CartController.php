@@ -13,12 +13,28 @@ class CartController
         header("Location: $referrer");
     }
 
+    public function actionDelete($id)
+    {
+        // Удалить товар из корзины
+        Cart::deleteProduct($id);
+        
+        // Возвращает пользователя на страницу
+        header("Location: /cart/");
+    }
+
     public function actionAddAjax($id)
     {
         // Добавляем товар в корзину
         echo Cart::addProduct($id);
         return true;
     }
+
+    /*public function actionDeleteAjax($id)
+    {
+        // Удаляем товар из корзины
+        Cart::deleteProcuct($id);
+        return true;
+    }*/
 
     public function actionIndex()
     {

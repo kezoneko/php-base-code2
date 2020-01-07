@@ -15,6 +15,7 @@
                                     <th>Название</th>
                                     <th>Стоимость, руб</th>
                                     <th>Количество, шт</th>
+                                    <th>Удалить</th>
                                 </tr>
                                 <?php foreach ($products as $product): ?>
                                 <tr>
@@ -22,15 +23,16 @@
                                     <td><a href="/product/<?= $product['id'] ?>"><?= $product['name'] ?></a></td>
                                     <td><?= $product['price'] ?></td>
                                     <td><?= $productsInCart[$product['id']] ?></td>
+                                    <td><a href="/cart/delete/<?= $product['id'] ?>"><i class="fa fa-times"></i></a></td>
                                 </tr>
                                 <?php endforeach ?>
                                 <tr>
-                                    <td colspan="3">Общая стоимость:</td>
+                                    <td colspan="4">Общая стоимость:</td>
                                     <td><?= $totalPrice ?></td>
                                 </tr>
                             </table>
 
-                            <a href="/cart/checkout"><button class="btn btn-default">Оформить заказ</button></a>
+                            <a href="/cart/checkout"><button class="btn btn-default"><i class="fa fa-shopping-cart"></i> Оформить заказ</button></a>
                             <?php else: ?>
                             <p>Корзина пуста</p>
                             <?php endif ?>
