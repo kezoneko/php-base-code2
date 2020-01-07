@@ -27,33 +27,39 @@
                         <div class="recommended_items"><!--recommended_items-->
                             <h2 class="title text-center">Рекомендуемые товары</h2>
 
-                            <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
+                            <div class="cycle-slideshow"
+                                    data-cycle-fx="carousel"
+                                    data-cycle-timeout="5000"
+                                    data-cycle-prev="#prev"
+                                    data-cycle-next="#next"
+                                    data-cycle-carousel-visible=3
+                                    date-cycle-carousel-fluid=true
+                                    data-cycle-slides="div.item2">
 <?php $i = 0; foreach ($recommendedProducts as $product): ?>
-                                    <div class="item<?= ($i == 0) ? ' active' : '' ?>">
-                                        <div class="col-sm-4">
-                                            <div class="product-image-wrapper">
-                                                <div class="single-products">
-                                                    <div class="productinfo text-center">
-                                                        <img src="<?= $product['image'] ?>" alt="" />
-                                                        <h2><?= $product['price'] ?> &#8381;</h2>
-                                                        <p><a href="/product/<?= $product['id'] ?>"><?= $product['name'] ?></a></p>
-                                                        <a href="/cart/add/<?= $product['id'] ?>" data-id="<?= $product['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
-                                                    </div>
-                                                </div>
+                                <div class="item2">
+                                    <div class="product-image-wrapper">
+                                        <div class="single-products">
+                                            <div class="productinfo text-center">
+                                                <img src="<?= $product['image'] ?>" alt="" />
+                                                <h2><?= $product['price'] ?> &#8381;</h2>
+                                                <p><a href="/product/<?= $product['id'] ?>"><?= $product['name'] ?></a></p>
+                                                <a href="/cart/add/<?= $product['id'] ?>" data-id="<?= $product['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
 <?php $i++; endforeach ?>
-                                </div>
-                                <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                                <a class="left recommended-item-control" href="#" id="prev" data-slide="prev">
                                     <i class="fa fa-angle-left"></i>
                                 </a>
-                                <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                                <a class="right recommended-item-control" href="#" id="next" data-slide="next">
                                     <i class="fa fa-angle-right"></i>
-                                </a>            
+                                </a>
                             </div>
+
+                            
+
                         </div><!--/recommended_items-->
 
                     </div>

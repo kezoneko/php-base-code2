@@ -6,14 +6,14 @@ class SiteController
     public function actionIndex()
     {
 
-        $categories = array();
+        // Список категорий для левого меню
         $categories = Category::getCategoriesList();
 
-        $latestProducts = array();
+        // Список последних товаров
         $latestProducts = Product::getLatestProducts(6);
 
-        $recommendedProducts = array();
-        $recommendedProducts = Product::getRecommendedProducts(6);
+        // Список товаров для слайдера
+        $recommendedProducts = Product::getRecommendedProducts();
 
         require_once(ROOT .'/views/site/index.php');
 

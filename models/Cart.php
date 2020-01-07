@@ -35,12 +35,7 @@ class Cart
         $id = intval($id);
 
         // Пустой массив для товаров в корзине
-        $productsInCart = array();
-
-        // Если в корзине уже есть товары (они хранятся в сессии)
-        if (isset($_SESSION['products'])) {
-            $productsInCart = $_SESSION['products'];
-        }
+        $productsInCart = self::getProducts();
 
         // Если товар есть в корзине, но была нажата кнопка удаления, удаляем из сессии и уменьшаем количество
         if (array_key_exists($id, $productsInCart)) {
@@ -51,7 +46,6 @@ class Cart
         }
 
         $_SESSION['products'] = $productsInCart;
-        return self::countItems();
     }
 
     public static function countItems()
