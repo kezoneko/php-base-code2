@@ -14,5 +14,9 @@ class Db
 
         return $db;
     }
+    public static function lastInsertId()
+    {
+        $
+    }
 }
 ?>
