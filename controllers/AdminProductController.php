@@ -23,12 +23,13 @@ class AdminProductController extends AdminBase
         if (isset($_POST['submit'])) {
             // Если форма отправлена
             // Получаем данные из формы
+            $options = array();
             $options['name'] = $_POST['name'];
             $options['code'] = $_POST['code'];
             $options['price'] = $_POST['price'];
             $options['category_id'] = $_POST['category_id'];
             $options['brand'] = $_POST['brand'];
-            $options['image'] = $_POST['image'];
+            $options['image'] = (isset($_POST['image']) && !empty($_POST['image'])) ? $_POST['image'] : '/template/images/404/404.png';
             $options['description'] = $_POST['description'];
             $options['availability'] = $_POST['availability'];
             $options['is_new'] = $_POST['is_new'];
@@ -53,7 +54,7 @@ class AdminProductController extends AdminBase
                     // Проверяем, загружалось ли через форму изображение
                     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
                         // Если загружалось, переместим его в нужную папку, дадим новое имя
-                        move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] ."/upload/images/")
+                        move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] ."/upload/images/". $_FILES["image"]["tmp_name"]);
                     }
                 }
 
@@ -92,7 +93,7 @@ class AdminProductController extends AdminBase
         self::checkAdmin();
 
         // Получаем список категорий для выпадающего списка
-        $caregoriesList = Category::getCategoriesListAdmin();
+        $categoriesList = Category::getCategoriesListAdmin();
 
         // Получаем данные о конкретном товаре
         $product = Product::getProductById($id);
@@ -121,10 +122,16 @@ class AdminProductController extends AdminBase
                 // Проверим, загружалось ли через форму изображение
                 if (is_uploaded_file($_FILES['image']['tmp_name'])) {
                     // Если загружалось, переместим его в нужную папку, дадим новое имя
-                    var_dump(move_uploaded_file($_FILES['image']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] .'/upload/images'))
+                    var_dump(move_uploaded_file($_FILES['image']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] .'/upload/images/'. $_FILES['image']['tmp_name']));
                 }
             }
+            // Перенаправляем пользователя на страницу управления товарами
+            header("Location: /admin/product");
         }
+
+        // Подключаем отображение
+        require_once ROOT .'/views/admin_product/update.php';
+        return true;
     }
 
     /**
