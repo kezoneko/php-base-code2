@@ -40,8 +40,10 @@
 
                         <p>Статус</p>
                         <select name="status" id="status">
-                            <option value="1"<?= ($order['status'] == 1) ? ' selected' : '' ?>>Обработан</option>
-                            <option value="0"<?= ($order['status'] == 0) ? ' selected' : '' ?>>Не обработан</option>
+                            <option value="1"<?= ($order['status'] == 1) ? ' selected' : '' ?>>Новый заказ</option>
+                            <option value="2"<?= ($order['status'] == 2) ? ' selected' : '' ?>>Обрабатывается</option>
+                            <option value="3"<?= ($order['status'] == 3) ? ' selected' : '' ?>>Доставляется</option>
+                            <option value="4"<?= ($order['status'] == 4) ? ' selected' : '' ?>>Закрыт</option>
                         </select>
 
                         <br><br>

@@ -20,11 +20,9 @@
             <table class="table table-bordered table-striped">
                 <tr>
                     <th>ID заказа</th>
-                    <th>Заказчик</th>
-                    <th>Телефон заказчика</th>
-                    <th>Комментарий заказчика</th>
-                    <th>ID заказчика</th>
-                    <th>Дата и время заказа</th>
+                    <th>Имя покупателя</th>
+                    <th>Телефон покупателя</th>
+                    <th>Дата оформления</th>
                     <th>Статус</th>
                     <th></th>
                     <th></th>
@@ -35,8 +33,6 @@
                     <td><?= $order['id'] ?></td>
                     <td><?= $order['user_name'] ?></td>
                     <td><?= $order['user_phone'] ?></td>
-                    <td><?= $order['user_comment'] ?></td>
-                    <td><?= (isset($order['user_id']) && $order['user_id'] > 0) ? $order['user_id'] .' ('. User::getUserNameById($order['user_id']) .')' : 'Нету' ?></td>
                     <td><?= $order['date'] ?></td>
                     <td><?= Order::getStatusText($order['status']) ?></td>
                     <td><a href="/admin/order/view/<?= $order['id'] ?>"><i class="fa fa-eye"></i></a></td>

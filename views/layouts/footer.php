@@ -31,15 +31,6 @@
                     return false;
                 });
             });
-            /*$(document).ready(function() {
-                $(".remove-from-cart").click(function() {
-                    var id = $(this).attr("data-id");
-                    $.post("/cart/remAjax/"+id, {}, function(data) {
-                        $("#cart-count").html(data);
-                    });
-                    return false;
-                });
-            });*/
         </script>
     </body>
 </html>

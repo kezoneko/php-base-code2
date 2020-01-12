@@ -12,7 +12,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="<?= $product['image'] ?>" alt="" />
+                                            <img src="<?= Product::getImage($product['id']) ?>" alt="" />
                                             <h2><?= $product['price'] ?> &#8381;</h2>
                                             <p><a href="/product/<?= $product['id'] ?>"><?= 'ID: '. $product['id'] .', '. $product['name'] ?></a></p>
                                             <a href="/cart/add/<?= $product['id'] ?>" data-id="<?= $product['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>

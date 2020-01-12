@@ -11,7 +11,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <img src="<?= $latestProductItem['image'] ?>" alt="" />
+                                            <img src="<?= Product::getImage($latestProductItem['id']) ?>" alt="" />
                                             <h2><?= $latestProductItem['price'] ?> &#8381;</h2>
                                             <p><a href="/product/<?= $latestProductItem['id'] ?>"><?= $latestProductItem['name'] ?></a></p>
                                             <a href="/cart/add/<?= $latestProductItem['id'] ?>" data-id="<?= $latestProductItem['id'] ?>" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>В корзину</a>

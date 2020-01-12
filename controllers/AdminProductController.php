@@ -54,7 +54,7 @@ class AdminProductController extends AdminBase
                     // Проверяем, загружалось ли через форму изображение
                     if (is_uploaded_file($_FILES["image"]["tmp_name"])) {
                         // Если загружалось, переместим его в нужную папку, дадим новое имя
-                        move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] ."/upload/images/". $_FILES["image"]["tmp_name"]);
+                        move_uploaded_file($_FILES["image"]["tmp_name"], $_SERVER['DOCUMENT_ROOT'] ."/upload/images/products/{$id}.jpg");
                     }
                 }
 
@@ -107,6 +107,7 @@ class AdminProductController extends AdminBase
             $options['price'] = $_POST['price'];
             $options['category_id'] = $_POST['category_id'];
             $options['brand'] = $_POST['brand'];
+            $options['image'] = (isset($_POST['image']) && !empty($_POST['image'])) ? $_POST['image'] : '/template/images/404/404.png';
             $options['availability'] = $_POST['availability'];
             $options['description'] = $_POST['description'];
             $options['is_new'] = $_POST['is_new'];
@@ -116,13 +117,11 @@ class AdminProductController extends AdminBase
             // Сохраняем изменения
             if (Product::updateProductById($id, $options)) {
 
-                prePrint($_FILES['image']);
-
                 // Если запись сохранена
                 // Проверим, загружалось ли через форму изображение
                 if (is_uploaded_file($_FILES['image']['tmp_name'])) {
                     // Если загружалось, переместим его в нужную папку, дадим новое имя
-                    var_dump(move_uploaded_file($_FILES['image']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] .'/upload/images/'. $_FILES['image']['tmp_name']));
+                    move_uploaded_file($_FILES['image']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] ."/upload/images/products/{$id}.jpg");
                 }
             }
             // Перенаправляем пользователя на страницу управления товарами

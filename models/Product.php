@@ -178,6 +178,30 @@ class Product
     }
 
     /**
+     * Получение пути изображения по $id
+     */
+    public static function getImage($id)
+    {
+        // Название изображения-пустышки
+        $noImage = '404.png';
+
+        // Путь к папке с товарами
+        $path = '/upload/images/products/';
+
+        // Путь к изображению товара
+        $pathToProductImage = $path . $id .'.jpg';
+
+        if (file_exists($_SERVER['DOCUMENT_ROOT'] . $pathToProductImage)) {
+            // Если изображение для товара существует
+            // Возвращаем путь изображения товара
+            return $pathToProductImage;
+        } else {
+            // Иначе возвращаем путь изображения-пустышки
+            return $path . $noImage;
+        }
+    }
+
+    /**
      * Добавляем новый товар
      * @param array $options <p>Массив с информацией о товаре</p>
      * @return integer $id <p>ID добавленной в таблицу записи</p>
@@ -189,10 +213,10 @@ class Product
 
         // Текст запроса к БД
         $sql = 'INSERT INTO product '
-            .'(name, code, price, category_id, brand, availability, '
+            .'(name, code, price, category_id, brand, image, availability, '
             .'description, is_new, is_recommended, status) '
             .'VALUES '
-            .'(:name, :code, :price, :category_id, :brand, :availability, '
+            .'(:name, :code, :price, :category_id, :brand, :image, :availability, '
             .':description, :is_new, :is_recommended, :status)';
 
         // Получение и возврат результатов. Используется подготовленный запрос
@@ -202,6 +226,7 @@ class Product
         $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
         $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
         $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+        $result->bindParam(':image', $options['image'], PDO::PARAM_STR);
         $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
         $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
         $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
@@ -235,6 +260,7 @@ class Product
             .'  price = :price, '
             .'  category_id = :category_id, '
             .'  brand = :brand, '
+            .'  image = :image, '
             .'  availability = :availability, '
             .'  description = :description, '
             .'  is_new = :is_new, '
@@ -250,6 +276,7 @@ class Product
         $result->bindParam(':price', $options['price'], PDO::PARAM_STR);
         $result->bindParam(':category_id', $options['category_id'], PDO::PARAM_INT);
         $result->bindParam(':brand', $options['brand'], PDO::PARAM_STR);
+        $result->bindParam(':image', $options['image'], PDO::PARAM_STR);
         $result->bindParam(':availability', $options['availability'], PDO::PARAM_INT);
         $result->bindParam(':description', $options['description'], PDO::PARAM_STR);
         $result->bindParam(':is_new', $options['is_new'], PDO::PARAM_INT);
