@@ -201,5 +201,21 @@ class User
             return $result->fetch();
         }
     }
+
+    /**
+     * Получение имени пользователя по ID
+     */
+    public static function getUserNameById($id)
+    {
+        if ($id) {
+            $db = Db::getConnection();
+
+            $result = $db->prepare('SELECT name FROM user WHERE id = :id');
+            $result->bindParam(':id', $id, PDO::PARAM_INT);
+            $result->execute();
+            $row = $result->fetch();
+            return $row['name'];
+        }
+    }
 }
 ?>
